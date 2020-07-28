@@ -6,7 +6,7 @@ scalar DateTime
     @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    cats: [Cat!]!
+    cats(breed_id: String = ""): [Cat!]!
     breeds: [Breed!]!
 }
 

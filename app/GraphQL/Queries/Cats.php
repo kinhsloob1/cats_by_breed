@@ -5,6 +5,7 @@ namespace App\GraphQL\Queries;
 use Illuminate\Support\Facades\Http;
 use Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy;
 use GuzzleHttp\HandlerStack;
+use Illuminate\Support\Arr;
 use Kevinrob\GuzzleCache\CacheMiddleware;
 use Kevinrob\GuzzleCache\Storage\FlysystemStorage;
 use League\Flysystem\Adapter\Local;
@@ -26,7 +27,7 @@ class Cats
                 new FlysystemStorage(
                     new Local(storage_path('app/public/cache'))
                 ),
-                30, // the TTL in seconds (30 seconds)
+                60, // the TTL in seconds (30 seconds)
             )
         ), 'cache');
 
@@ -36,7 +37,8 @@ class Cats
             'x-api-key' => 'c1d2da0c-b43b-4fbc-b8e8-e50895b42778',
         ])->get('https://api.thecatapi.com/v1/images/search', [
             'limit' => 20,
-            'format' => 'json'
+            'format' => 'json',
+            'breed_id' => Arr::get($args, 'breed_id', '') ?: null
         ]);
 
         return $response->json();
