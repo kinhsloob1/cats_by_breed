@@ -1,0 +1,12 @@
+#Fragments
+fragment CatFields on Cat {
+    id
+    image_url
+}
+
+#Queries
+query getCats($breed_id: String = "") {
+    cats(breed_id: $breed_id) {
+        ...CatFields
+    }
+}

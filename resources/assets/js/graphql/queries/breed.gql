@@ -1,0 +1,12 @@
+#Fragments
+fragment BreedFields on Breed {
+    id
+    name
+}
+
+#Queries
+query getBreeds {
+    breeds {
+        ...BreedFields
+    }
+}
