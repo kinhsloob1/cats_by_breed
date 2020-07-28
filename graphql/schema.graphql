@@ -2,17 +2,21 @@
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
-scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+scalar DateTime
+    @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Query {
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
+    cats: [Cat!]!
+    breeds: [Breed!]!
 }
 
-type User {
-    id: ID!
+type Breed {
+    id: String!
     name: String!
-    email: String!
-    created_at: DateTime!
-    updated_at: DateTime!
+}
+
+type Cat {
+    id: String!
+    image_url: String! @rename(attribute: "url")
+    breed: Breed
 }
