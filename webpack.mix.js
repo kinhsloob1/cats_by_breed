@@ -1,4 +1,4 @@
-const mix = require("laravel-mix");
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,23 +12,23 @@ const mix = require("laravel-mix");
  */
 
 mix.webpackConfig({
-    resolve: {
-        alias: {
-            "@": __dirname + "/resources/assets/js"
-        }
-    },
-    module: {
-        rules: [
-            {
-                test: /\.(graphql|gql)$/,
-                exclude: /node_modules/,
-                loader: "graphql-tag/loader"
-            }
-        ]
+  resolve: {
+    alias: {
+      '@': __dirname + '/resources/assets/js'
     }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(graphql|gql)$/,
+        exclude: /node_modules/,
+        loader: 'graphql-tag/loader'
+      }
+    ]
+  }
 });
 
-mix.js("resources/assets/js/app.js", "public/js");
+mix.js('resources/assets/js/app.js', 'public/js');
 if (mix.inProduction()) {
-    mix.extract(["vue"]);
+  mix.extract(['vue']);
 }
