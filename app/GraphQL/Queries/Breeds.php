@@ -12,6 +12,7 @@ use League\Flysystem\Adapter\Local;
 class Breeds
 {
     /**
+     * Breeds query resolver
      * @param  null  $_
      * @param  array<string, mixed>  $args
      */
@@ -26,10 +27,11 @@ class Breeds
                 new FlysystemStorage(
                     new Local(storage_path('app/public/cache'))
                 ),
-                5 * 60, // the TTL in seconds (300 seconds)
+                10 * 60, // the TTL in seconds (300 seconds)
             )
         ), 'cache');
 
+        // add cache ability to the underlying guzzle framework
         $response = Http::withOptions([
             'handler' => $stack
         ])->withHeaders([
@@ -39,6 +41,7 @@ class Breeds
             'format' => 'json'
         ]);
 
+        //return json decoded response body.
         return $response->json();
     }
 }

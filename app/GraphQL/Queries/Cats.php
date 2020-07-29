@@ -13,6 +13,7 @@ use League\Flysystem\Adapter\Local;
 class Cats
 {
     /**
+     * cats query resolver
      * @param  null  $_
      * @param  array<string, mixed>  $args
      */
@@ -27,10 +28,11 @@ class Cats
                 new FlysystemStorage(
                     new Local(storage_path('app/public/cache'))
                 ),
-                60, // the TTL in seconds (30 seconds)
+                10 * 60, // the TTL in seconds (30 seconds)
             )
         ), 'cache');
 
+        // add cache ability to the underlying guzzle framework
         $response = Http::withOptions([
             'handler' => $stack
         ])->withHeaders([
@@ -41,6 +43,7 @@ class Cats
             'breed_id' => Arr::get($args, 'breed_id', '') ?: null
         ]);
 
+        //return decoded response body from api
         return $response->json();
     }
 }
